@@ -33,7 +33,7 @@ public class Space{
   }
   
   public void addHouses(Integer change){
-     house += change; 
+     houses += change; 
   }
   
   public float[] getPrices(){
