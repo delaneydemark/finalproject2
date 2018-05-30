@@ -15,6 +15,10 @@ public class Player{
     getOutOfJail = 0;
  }
  
+ public String getName(){
+    return name; 
+ }
+ 
  public void addProperties(Integer prop){
     properties.add(prop); 
  }
@@ -40,7 +44,8 @@ public class Player{
  }
  
  public void changeLocation(Integer spaces){
-   location += spaces;
+   location += spaces+40;
+   location = location % 40;
  }
  
  public boolean getJail(){
