@@ -38,7 +38,7 @@ public class Space{
 	while((currentLine = brChance.readLine()) != null){
 
 	   String[] line = currentLine.split(",");
-	   chanceCards[i] = new Card(Float.parseFloat(line[0]), line[1]);
+	   chanceCards[i] = new Card(Float.parseFloat(line[0]), line[1], Integer.parseInt(line[2]));
 	   i++;
 
 	}
@@ -58,7 +58,7 @@ public class Space{
 
 	while((current = brChest.readLine()) != null){
 	    String[] l = current.split(",");
-	    communityChestCards[i] = new Card(Float.parseFloat(line[0]), line[1]);
+	    communityChestCards[i] = new Card(Float.parseFloat(line[0]), line[1],Integer.parseInt(line[2]));
 	    index++;
 	}
       }catch(IOException e){
