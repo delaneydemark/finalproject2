@@ -35,7 +35,7 @@ public class Space{
 	String currentLine;
 	int i = 0;
 
-	while((currentLine = br.readLine()) != null){
+	while((currentLine = brChance.readLine()) != null){
 
 	   String[] line = currentLine.split(",");
 	   chanceCards[i] = new Card(Float.parseFloat(line[0]), line[1]);
@@ -45,8 +45,27 @@ public class Space{
     }catch(IOException e){
       	e.printStackTrace();
       }
-    
- }
+
+      BufferedReader brChest = null;
+      FileReader frChest = null;
+
+      try{
+	frChest = new FileReader("communityChestCards.csv");
+	brChest = new BufferedReader(frChest);
+
+	String current;
+	int index = 0;
+
+	while((current = brChest.readLine()) != null){
+	    String[] l = current.split(",");
+	    communityChestCards[i] = new Card(Float.parseFloat(line[0]), line[1]);
+	    index++;
+	}
+      }catch(IOException e){
+      	e.printStackTrace();
+      }
+    }
+ 
  
  public Player getOwner(){
    return owner;
