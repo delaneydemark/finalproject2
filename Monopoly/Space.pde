@@ -18,6 +18,8 @@ public class Space{
    prices = Prices;
    houses = 0;
    owner = null;
+   chanceCards = new Card[16];
+   communityChestCards = new Card[16];
  }
  
  public void setUpCards(){
@@ -29,7 +31,20 @@ public class Space{
     try{
 	frChance = new FileReader("chanceCards.csv");
 	brChance = new BufferedReader(frChance);
-    }
+
+	String currentLine;
+	int i = 0;
+
+	while((currentLine = br.readLine()) != null){
+
+	   String[] line = currentLine.split(",");
+	   chanceCards[i] = new Card(Float.parseFloat(line[0]), line[1]);
+	   i++;
+
+	}
+    }catch(IOException e){
+      	e.printStackTrace();
+      }
     
  }
  
