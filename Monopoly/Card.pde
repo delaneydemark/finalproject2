@@ -19,6 +19,6 @@ public class Card{
  }
  
  public Integer getType(){
-  return type
+  return type;
  }
 }

@@ -29,7 +29,7 @@ public class Space{
     FileReader frChance = null;
 
     try{
-	frChance = new FileReader("chanceCards.csv");
+	frChance = new FileReader("chance.csv");
 	brChance = new BufferedReader(frChance);
 
 	String currentLine;
@@ -50,7 +50,7 @@ public class Space{
       FileReader frChest = null;
 
       try{
-	frChest = new FileReader("communityChestCards.csv");
+	frChest = new FileReader("communityChest.csv");
 	brChest = new BufferedReader(frChest);
 
 	String current;
@@ -58,7 +58,7 @@ public class Space{
 
 	while((current = brChest.readLine()) != null){
 	    String[] l = current.split(",");
-	    communityChestCards[i] = new Card(Float.parseFloat(line[0]), line[1],Integer.parseInt(line[2]));
+	    communityChestCards[index] = new Card(Float.parseFloat(l[0]), l[1],Integer.parseInt(l[2]));
 	    index++;
 	}
       }catch(IOException e){
