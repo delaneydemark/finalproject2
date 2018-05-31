@@ -5,6 +5,9 @@ public class Player{
  ArrayList<Integer> properties;
  boolean inJail;
  Integer getOutOfJail;
+ Integer jailCounter;
+ Integer rrCounter=0;
+ Integer uCounter= 0;
  
  public Player(String Name){
     name = Name;
@@ -13,6 +16,31 @@ public class Player{
     properties = new ArrayList<Integer>();
     inJail = false;
     getOutOfJail = 0;
+    jailCounter = 0;
+ }
+ 
+ public Integer getUCounter(){
+  return uCounter; 
+ }
+ 
+ public Integer getRRCounter(){
+   return rrCounter;
+ }
+ 
+ public void setRRCounter(Integer c){
+  rrCounter += c; 
+ }
+ 
+ public void setUCounter(Integer c){
+  uCounter += c; 
+ }
+ 
+ public Integer getJailCounter(){
+  return jailCounter; 
+ }
+ 
+ public void changeJailCounter(Integer c){
+  jailCounter+= c; 
  }
  
  public String getName(){
