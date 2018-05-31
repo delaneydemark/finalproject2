@@ -1,10 +1,12 @@
 public class Card{
  float change;
  String description;
+ Integer type;
  
- public Card(float Change, String Description){
+ public Card(float Change, String Description, Integer t){
     change = Change;
     description = Description;
+    type = t;
     println("test");
  }
  
@@ -14,5 +16,9 @@ public class Card{
  
  public String getDescription(){
     return description; 
+ }
+ 
+ public Integer getType(){
+  return type
  }
 }
