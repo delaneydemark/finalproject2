@@ -1,7 +1,7 @@
 public class Player{
  String name;
  float money;
- Integer location;
+ float location;
  ArrayList<Integer> properties;
  boolean inJail;
  Integer getOutOfJail;
@@ -39,11 +39,15 @@ public class Player{
     money += change;
  }
  
- public Integer getLocation(){
+ public void setLocation(float l){
+    location = l; 
+ }
+ 
+ public float getLocation(){
     return location; 
  }
  
- public void changeLocation(Integer spaces){
+ public void changeLocation(float spaces){
    location += spaces+40;
    location = location % 40;
  }

@@ -1,6 +1,11 @@
 public class Board{
  Card[] chanceCards;
  Card[] communityChestCards; 
+ Space[] board;
+ 
+ public Space[] getArray(){
+    return board; 
+ }
   
   public void setUpCards(){
     //WRITE CODE TO SET UP CHANCE AND COMMUNITY CHEST CARDS

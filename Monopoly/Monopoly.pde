@@ -1,14 +1,19 @@
-public void setup(){
+Player t;
+Board board;
+
+void setup(){
   //work out something 
   size(600,300);
-  Player t = new Player("Carmen");
+  t = new Player("Carmen");
+  println(t.getName());
   float[] info = {12.6,22.3,33.8};
   Space test = new Space(0,"Park Place",info);
   test.setOwner(t);
-  println(test.getOwner());  
+  test.evaluate(t,board); 
+  println(t.getMoney());
 }
         
-public void update(){
+void update(){
   background(255);
   println("test");
 }
