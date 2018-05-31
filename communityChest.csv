@@ -1,0 +1,15 @@
+category,name,change
+4,Advance to Go,200
+1,"Bank error in your favor, collect $200.",200
+1,"Doctor's Fees, pay $50.",-50
+1,From sale of stock you get $50,50
+2,Get out of Jail Free,0
+4,Go to Jail,10
+1,"Holiday Fund matures, receive $100",100
+1,"Income Tax Refund, collect $20.",20
+1,"Life Insurance Matures, collect $100.",100
+1,Pay hospital fees of $100,-100
+1,Pay school fees of $150,-150
+1,Receive $25 consultancy fee,25
+1,"You have won second prize in a beauty contest, , collect $10.",10
+1,You inherit $100,100
