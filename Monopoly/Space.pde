@@ -3,14 +3,12 @@ import java.io.FileReader;
 
 
 
-public class Space{
+public class Space extends Monopoly{
  Integer type;
  String name;
  float[] prices;
  Integer houses;
  Player owner;
- Card[] chanceCards;
- Card[] communityChestCards;
  
  public Space(Integer Type, String Name, float[] Prices){
    type = Type;
@@ -21,51 +19,6 @@ public class Space{
    chanceCards = new Card[16];
    communityChestCards = new Card[16];
  }
- 
- public void setUpCards(){
-    //WRITE CODE TO SET UP CHANCE AND COMMUNITY CHEST CARDS
-
-    BufferedReader brChance = null;
-    FileReader frChance = null;
-
-    try{
-	frChance = new FileReader("chance.csv");
-	brChance = new BufferedReader(frChance);
-
-	String currentLine;
-	int i = 0;
-
-	while((currentLine = brChance.readLine()) != null){
-
-	   String[] line = currentLine.split(",");
-	   chanceCards[i] = new Card(Float.parseFloat(line[0]), line[1], Integer.parseInt(line[2]));
-	   i++;
-
-	}
-    }catch(IOException e){
-      	e.printStackTrace();
-      }
-
-      BufferedReader brChest = null;
-      FileReader frChest = null;
-
-      try{
-	frChest = new FileReader("communityChest.csv");
-	brChest = new BufferedReader(frChest);
-
-	String current;
-	int index = 0;
-
-	while((current = brChest.readLine()) != null){
-	    String[] l = current.split(",");
-	    communityChestCards[index] = new Card(Float.parseFloat(l[0]), l[1],Integer.parseInt(l[2]));
-	    index++;
-	}
-      }catch(IOException e){
-      	e.printStackTrace();
-      }
-    }
- 
  
  public Player getOwner(){
    return owner;
@@ -86,16 +39,6 @@ public class Space{
   
   public float[] getPrices(){
      return prices; 
-  }
-  
-  public Card getChanceCard(){
-     int num = (int) Math.random() * (chanceCards.length + 1);
-     return chanceCards[num];
-  }
-  
-  public Card getCommunityChestCard(){
-     int num = (int) Math.random() * (communityChestCards.length + 1);
-     return communityChestCards[num];
   }
   
   public Integer getType(){
