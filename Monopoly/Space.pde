@@ -1,3 +1,8 @@
+import java.io.BufferedReader;
+import java.io.FileReader;
+
+
+
 public class Space{
  Integer type;
  String name;
@@ -16,7 +21,16 @@ public class Space{
  }
  
  public void setUpCards(){
-    //WRITE CODE TO SET UP CHANCE AND COMMUNITY CHEST CARDS 
+    //WRITE CODE TO SET UP CHANCE AND COMMUNITY CHEST CARDS
+
+    BufferedReader brChance = null;
+    FileReader frChance = null;
+
+    try{
+	frChance = new FileReader("chanceCards.csv");
+	brChance = new BufferedReader(frChance);
+    }
+    
  }
  
  public Player getOwner(){
