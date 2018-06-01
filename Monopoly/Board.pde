@@ -28,12 +28,12 @@ public class Board{
 		prices[1] = Float.parseFloat(cLine[4]);
 		prices[2] = Float.parseFloat(cLine[5]);
 		prices[3] = Float.parseFloat(cLine[7]);
-		prices[4] = Float.parseFloat(cLine[8])
+		prices[4] = Float.parseFloat(cLine[8]);
 		prices[5] = Float.parseFloat(cLine[9]);
 		prices[6] = Float.parseFloat(cLine[10]);
 		prices[7] = Float.parseFloat(cLine[11]);
 		prices[8] = Float.parseFloat(cLine[12]);
-		Space[j] = new Space(t, n, prices);
+		board[j] = new Space(t, n, prices);
 		j++;
 		
 		
@@ -60,7 +60,7 @@ public class Board{
   while((currentLine = brChance.readLine()) != null){
 
      String[] line = currentLine.split(",");
-     chanceCards[i] = new Card(Float.parseFloat(line[0]), line[1], Integer.parseInt(line[2]));
+     chanceCards[i] = new Card(Float.parseFloat(line[2]), line[1], Integer.parseInt(line[0]));
      i++;
 
   }
@@ -80,7 +80,7 @@ public class Board{
 
   while((current = brChest.readLine()) != null){
       String[] l = current.split(",");
-      communityChestCards[index] = new Card(Float.parseFloat(l[0]), l[1],Integer.parseInt(l[2]));
+      communityChestCards[index] = new Card(Float.parseFloat(l[2]), l[1],Integer.parseInt(l[0]));
       index++;
   }
       }catch(IOException e){
