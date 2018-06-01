@@ -1,15 +1,28 @@
-Player t;
+import g4p_controls.*;
+
+Player[] players;
 Board board;
 
 void setup(){
+  board =new Board();
   //work out something 
   size(600,300);
-  t = new Player("Carmen");
-  println(t.getName());
-  float[] info = {12.6,22.3,33.8};
-  Space test = new Space(0,0,"Park Place",info);
-  test.setOwner(t);
-  println(t.getMoney());
+  GTextField text = new GTextField(this,55,56,160,30, G4P.SCROLLBARS_NONE);
+  text.draw();
+  println(text.getText());
+  BufferedReader br;
+  FileReader fr;
+  try{
+    fr = new FileReader("a.txt");
+  
+  }catch(Exception e){
+    
+  }
+}
+public void handleTextEvents(GEditableTextControl textcont,GEvent event){
+    println(textcont.getText());
+    
+  
 }
         
 void update(){

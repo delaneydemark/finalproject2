@@ -36,7 +36,7 @@ public class Board{
 		prices[6] = Float.parseFloat(cLine[10]);
 		prices[7] = Float.parseFloat(cLine[11]);
 		prices[8] = Float.parseFloat(cLine[12]);
-		board[j] = new Space(t, n, prices);
+		board[j] = new Space(j,t, n, prices);
 		j++;
 		
 		
@@ -44,8 +44,13 @@ public class Board{
 	}catch(IOException e){
 	    e.printStackTrace();
 	}
+  setUpCards();
  	
  }
+  
+  public Space[] getArray(){
+     return board; 
+  }
   
   public void setUpCards(){
     //WRITE CODE TO SET UP CHANCE AND COMMUNITY CHEST CARDS
