@@ -1,10 +1,50 @@
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.*;
+import java.util.*;
+
 public class Board{
  Card[] chanceCards;
- Card[] communityChestCards; 
+ Card[] communityChestCards;
  Space[] board;
- 
- public Space[] getArray(){
-    return board; 
+
+ public Board(){
+ 	chanceCards = new Card[15];
+ 	communityChestCards = new Card[14];
+ 	board = new Space[40];
+ 	BufferedReader brSpace = null;
+	FileReader frSpace = null;
+	try{
+
+	    frSpace = new FileReader("properties.csv");
+	    brSpace = new BufferedReader(frSpace);
+
+	    String c;
+	    int j = 0;
+
+	    while((c = brSpace.readLine()) != null){
+	        String[] cLine = c.split(",");
+		Integer t = Integer.parseInt(cLine[1]);
+		String n = cLine[2];
+		float[] prices = new float[9];
+		prices[0] = Float.parseFloat(cLine[3]);
+		prices[1] = Float.parseFloat(cLine[4]);
+		prices[2] = Float.parseFloat(cLine[5]);
+		prices[3] = Float.parseFloat(cLine[7]);
+		prices[4] = Float.parseFloat(cLine[8]);
+		prices[5] = Float.parseFloat(cLine[9]);
+		prices[6] = Float.parseFloat(cLine[10]);
+		prices[7] = Float.parseFloat(cLine[11]);
+		prices[8] = Float.parseFloat(cLine[12]);
+		board[j] = new Space(t, n, prices);
+		j++;
+		
+		
+	    }
+	}catch(IOException e){
+	    e.printStackTrace();
+	}
+ 	
  }
   
   public void setUpCards(){
@@ -23,7 +63,7 @@ public class Board{
   while((currentLine = brChance.readLine()) != null){
 
      String[] line = currentLine.split(",");
-     chanceCards[i] = new Card(Float.parseFloat(line[0]), line[1], Integer.parseInt(line[2]));
+     chanceCards[i] = new Card(Float.parseFloat(line[2]), line[1], Integer.parseInt(line[0]));
      i++;
 
   }
@@ -43,7 +83,7 @@ public class Board{
 
   while((current = brChest.readLine()) != null){
       String[] l = current.split(",");
-      communityChestCards[index] = new Card(Float.parseFloat(l[0]), l[1],Integer.parseInt(l[2]));
+      communityChestCards[index] = new Card(Float.parseFloat(l[2]), l[1],Integer.parseInt(l[0]));
       index++;
   }
       }catch(IOException e){
