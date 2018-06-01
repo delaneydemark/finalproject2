@@ -24,10 +24,10 @@ tile,type,name,deed_cost,mortgage_cost,rent,color,house_1,house_2,house_3,house_
 22,3,Chance,0,0,0,0,0,0,0,0,0,0
 23,0,Indiana Avenue,220,110,18,red,90,250,700,875,1050,150
 24,0,Illinois Avenue,240,120,20,red,100,300,750,925,1100,150
-25,1,B&O RR,200,,0,rr,25,50,100,200,0,0
+25,1,B&O RR,200,0,0,rr,25,50,100,200,0,0
 26,0,Atlantic Avenue,260,130,22,yellow,110,330,800,975,1150,150
 27,0,Ventnor Avenue,260,130,22,yellow,110,330,800,975,1150,150
-28,1,Water Works,200,,0,utility,4,10,0,0,0,0
+28,1,Water Works,200,0,0,utility,4,10,0,0,0,0
 29,0,Marvin Gardens,280,140,24,yellow,120,360,850,1025,1200,150
 30,6,Go to Jail,0,0,0,0,0,0,0,0,0,0
 31,0,Pacific Avenue,300,150,26,green,130,390,900,1100,1275,200
