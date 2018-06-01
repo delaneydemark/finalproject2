@@ -1,6 +1,48 @@
+import java.io.BufferedReader;
+import java.io.FileReader;
+
+
 public class Board{
  Card[] chanceCards;
- Card[] communityChestCards; 
+ Card[] communityChestCards;
+ Space[] board;
+
+ public Board(){
+ 	board = new Space[40];
+ 	BufferedReader brSpace = null;
+	FileReader frSpace = null;
+	try{
+
+	    frSpace = new FileReader("properties.csv");
+	    brSpace = new BufferedReader(frSpace);
+
+	    String c;
+	    int j = 0;
+
+	    while((c = brSpace.readLine()) != null){
+	        String[] cLine = c.split(",");
+		Integer t = Integer.parseInt(cLine[1]);
+		String n = cLine[2];
+		float[] prices = new float[9];
+		prices[0] = Float.parseFloat(cLine[3]);
+		prices[1] = Float.parseFloat(cLine[4]);
+		prices[2] = Float.parseFloat(cLine[5]);
+		prices[3] = Float.parseFloat(cLine[7]);
+		prices[4] = Float.parseFloat(cLine[8])
+		prices[5] = Float.parseFloat(cLine[9]);
+		prices[6] = Float.parseFloat(cLine[10]);
+		prices[7] = Float.parseFloat(cLine[11]);
+		prices[8] = Float.parseFloat(cLine[12]);
+		Space[j] = new Space(t, n, prices);
+		j++;
+		
+		
+	    }
+	}catch(IOException e){
+	    e.printStackTrace();
+	}
+ 	
+ }
   
   public void setUpCards(){
     //WRITE CODE TO SET UP CHANCE AND COMMUNITY CHEST CARDS
