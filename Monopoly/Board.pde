@@ -8,6 +8,8 @@ public class Board{
  Space[] board;
 
  public Board(){
+ 	chanceCards = new Card[15];
+ 	communityChestCards = new Card[14];
  	board = new Space[40];
  	BufferedReader brSpace = null;
 	FileReader frSpace = null;
