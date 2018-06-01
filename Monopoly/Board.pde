@@ -19,9 +19,9 @@ public class Board{
 	    frSpace = new FileReader("properties.csv");
 	    brSpace = new BufferedReader(frSpace);
 
-	    String c;
+	    String c = brSpace.readLine();
 	    int j = 0;
-
+	    
 	    while((c = brSpace.readLine()) != null){
 	        String[] cLine = c.split(",");
 		Integer t = Integer.parseInt(cLine[1]);
@@ -57,7 +57,7 @@ public class Board{
   frChance = new FileReader("chance.csv");
   brChance = new BufferedReader(frChance);
 
-  String currentLine;
+  String currentLine = brChance.readLine();
   int i = 0;
 
   while((currentLine = brChance.readLine()) != null){
@@ -78,7 +78,7 @@ public class Board{
   frChest = new FileReader("communityChest.csv");
   brChest = new BufferedReader(frChest);
 
-  String current;
+  String current = brChest.readLine();
   int index = 0;
 
   while((current = brChest.readLine()) != null){
