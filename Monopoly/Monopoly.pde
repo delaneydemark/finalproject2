@@ -114,7 +114,8 @@ void Submit(){
      cp5.remove("Submit");
      cp5.remove("PlayerName");*/
  }
- 
+
+// returns true if the game is over, returns false otherwise
  boolean end(){
    int alive = players.length;
    for(int i = 0; i<players.length; i++){
@@ -122,5 +123,5 @@ void Submit(){
        alive--;
      }
    }
-   return alive > 2; 
+   return alive <= 2; 
  }
