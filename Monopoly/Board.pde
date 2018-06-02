@@ -19,9 +19,9 @@ public class Board{
 	    frSpace = new FileReader("properties.csv");
 	    brSpace = new BufferedReader(frSpace);
 
-	    String c;
+	    String c = brSpace.readLine();
 	    int j = 0;
-
+	    
 	    while((c = brSpace.readLine()) != null){
 	        String[] cLine = c.split(",");
 		Integer t = Integer.parseInt(cLine[1]);
@@ -36,7 +36,7 @@ public class Board{
 		prices[6] = Float.parseFloat(cLine[10]);
 		prices[7] = Float.parseFloat(cLine[11]);
 		prices[8] = Float.parseFloat(cLine[12]);
-		board[j] = new Space(t, n, prices);
+		board[j] = new Space(j,t, n, prices);
 		j++;
 		
 		
@@ -44,6 +44,7 @@ public class Board{
 	}catch(IOException e){
 	    e.printStackTrace();
 	}
+  setUpCards();
  	
  }
   
@@ -57,7 +58,7 @@ public class Board{
   frChance = new FileReader("chance.csv");
   brChance = new BufferedReader(frChance);
 
-  String currentLine;
+  String currentLine = brChance.readLine();
   int i = 0;
 
   while((currentLine = brChance.readLine()) != null){
@@ -78,7 +79,7 @@ public class Board{
   frChest = new FileReader("communityChest.csv");
   brChest = new BufferedReader(frChest);
 
-  String current;
+  String current = brChest.readLine();
   int index = 0;
 
   while((current = brChest.readLine()) != null){

@@ -1,10 +1,13 @@
 public class Player{
  String name;
  float money;
- Integer location;
+ float location;
  ArrayList<Integer> properties;
  boolean inJail;
  Integer getOutOfJail;
+ Integer jailCounter;
+ Integer rrCounter=0;
+ Integer uCounter= 0;
  
  public Player(String Name){
     name = Name;
@@ -13,6 +16,35 @@ public class Player{
     properties = new ArrayList<Integer>();
     inJail = false;
     getOutOfJail = 0;
+    jailCounter = 0;
+ }
+ 
+ public String toString(){
+  return name; 
+ }
+ 
+ public Integer getUCounter(){
+  return uCounter; 
+ }
+ 
+ public Integer getRRCounter(){
+   return rrCounter;
+ }
+ 
+ public void setRRCounter(Integer c){
+  rrCounter += c; 
+ }
+ 
+ public void setUCounter(Integer c){
+  uCounter += c; 
+ }
+ 
+ public Integer getJailCounter(){
+  return jailCounter; 
+ }
+ 
+ public void changeJailCounter(Integer c){
+  jailCounter+= c; 
  }
  
  public String getName(){
@@ -39,11 +71,15 @@ public class Player{
     money += change;
  }
  
- public Integer getLocation(){
+ public void setLocation(float l){
+    location = l; 
+ }
+ 
+ public float getLocation(){
     return location; 
  }
  
- public void changeLocation(Integer spaces){
+ public void changeLocation(float spaces){
    location += spaces+40;
    location = location % 40;
  }
