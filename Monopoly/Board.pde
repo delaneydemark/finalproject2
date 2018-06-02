@@ -12,45 +12,14 @@ public class Board{
  	chanceCards = new Card[15];
  	communityChestCards = new Card[14];
  	board = new Space[40];
- 	/*BufferedReader brSpace = null;
-	//FileReader frSpace = null;
-	try{
-
-	    //frSpace = new FileReader("properties.csv");
-	    //brSpace = new BufferedReader(frSpace);
-      brSpace = createReader("properties.csv");
-
-	    String c = brSpace.readLine();
-	    int j = 0;
-	    
-	    while((c = brSpace.readLine()) != null){
-	        String[] cLine = c.split(",");
-		Integer t = Integer.parseInt(cLine[1]);
-		String n = cLine[2];
-		float[] prices = new float[9];
-		prices[0] = Float.parseFloat(cLine[3]);
-		prices[1] = Float.parseFloat(cLine[4]);
-		prices[2] = Float.parseFloat(cLine[5]);
-		prices[3] = Float.parseFloat(cLine[7]);
-		prices[4] = Float.parseFloat(cLine[8]);
-		prices[5] = Float.parseFloat(cLine[9]);
-		prices[6] = Float.parseFloat(cLine[10]);
-		prices[7] = Float.parseFloat(cLine[11]);
-		prices[8] = Float.parseFloat(cLine[12]);
-		board[j] = new Space(j,t, n, prices);
-		j++;
-		
-		
-	    }
-	}catch(IOException e){
-	    e.printStackTrace();
-	}
-  setUpCards();
- 	*/
  }
  
  public void setBoard(Space s, int index){
    board[index] = s;
+ }
+ 
+ public void setChance(Card c, int index){
+   chanceCards[index] = c;
  }
   
   public void setUpCards(){

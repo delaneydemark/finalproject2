@@ -46,12 +46,28 @@ void parseFile(){
       Space s = new Space(j,t, n, prices);
       board.setBoard(s,j);
       j++;
-    
-    
     }
+    reader.close();
   }catch(IOException e ){
     e.printStackTrace();
   }
+  
+  BufferedReader chance;
+  try{
+    chance = createReader("chance.csv");
+    String currentLine = chance.readLine();
+    int i = 0;
+    while((currentLine = chance.readLine()) != null){
+     String[] line = currentLine.split(",");
+     Card c = new Card(Float.parseFloat(line[2]), line[1], Integer.parseInt(line[0]));
+     board.setChance(c, i);
+     i++;
+    }
+    chance.close();
+  }catch(IOException e){
+    e.printStackTrace();
+  }
+  
   
 }
 
