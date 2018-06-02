@@ -12,7 +12,7 @@ public class Board{
  	chanceCards = new Card[15];
  	communityChestCards = new Card[14];
  	board = new Space[40];
- 	BufferedReader brSpace = null;
+ 	/*BufferedReader brSpace = null;
 	//FileReader frSpace = null;
 	try{
 
@@ -46,7 +46,7 @@ public class Board{
 	    e.printStackTrace();
 	}
   setUpCards();
- 	
+ 	*/
  }
  
  public void setBoard(Space s, int index){
