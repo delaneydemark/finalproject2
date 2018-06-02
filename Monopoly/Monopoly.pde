@@ -78,7 +78,6 @@ void parseFile(){
     String current = chest.readLine();
     int index = 0;
     while((current = chest.readLine()) != null){
-      println(current);
       String[] l = current.split(",");
       Card com = new Card(Float.parseFloat(l[2]), l[1],Integer.parseInt(l[0]));
       board.setCommunityChest(com, index);
