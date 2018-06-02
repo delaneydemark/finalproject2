@@ -19,6 +19,10 @@ public class Player{
     jailCounter = 0;
  }
  
+ public String toString(){
+  return name; 
+ }
+ 
  public Integer getUCounter(){
   return uCounter; 
  }

@@ -1,31 +1,50 @@
-import g4p_controls.*;
+import controlP5.*;
 
-Player[] players;
-Board board;
+ControlP5 cp5;
+Player[] players = new Player[4];
+Board board = new Board();
+float x=0;
+String t ="";
 
 void setup(){
-  board =new Board();
   //work out something 
-  size(600,300);
-  GTextField text = new GTextField(this,55,56,160,30, G4P.SCROLLBARS_NONE);
-  text.draw();
-  println(text.getText());
-  BufferedReader br;
-  FileReader fr;
-  try{
-    fr = new FileReader("a.txt");
-  
-  }catch(Exception e){
-    
-  }
+  size(700,400);
+  cp5= new ControlP5(this);
+  cp5.addButton("TwoPlayers").setPosition(50,50).setSize(50,50);
+  cp5.addButton("ThreePlayers").setPosition(150,50).setSize(50,50);
+  cp5.addButton("FourPlayers").setPosition(250,50).setSize(50,50);
+  cp5.addTextfield("PlayerName").setPosition(20,200).setSize(200,40).setAutoClear(false);
+  cp5.addButton("Submit").setPosition(240,200).setSize(80,40);
+  cp5.addButton("BeginGame").setPosition(600,300).setSize(80,40);
 }
-public void handleTextEvents(GEditableTextControl textcont,GEvent event){
-    println(textcont.getText());
-    
-  
+
+void draw(){
+ background(0); 
 }
-        
-void update(){
-  background(255);
-  println("test");
+
+void TwoPlayers(){
+  players = new Player[2];  
 }
+
+void ThreePlayers(){
+  players = new Player[3];  
+}
+
+void FourPlayers(){
+  players = new Player[4];  
+}
+void Submit(){
+ t = cp5.get(Textfield.class,"PlayerName").getText(); 
+ players[(int)x] = new Player(t);
+ x++;
+ println(players);
+ }
+ 
+ void BeginGame(){
+ /*    cp5.remove("TwoPlayers");
+     cp5.remove("ThreePlayers");
+     cp5.remove("FourPlayers");
+     cp5.remove("BeginGame");
+     cp5.remove("Submit");
+     cp5.remove("PlayerName");*/
+ }
