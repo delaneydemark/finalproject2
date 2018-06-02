@@ -102,5 +102,9 @@ public class Board{
      return communityChestCards[num];
   }
   
+  public Space[] getArray(){
+    return board;
+  }
+  
   
 }
