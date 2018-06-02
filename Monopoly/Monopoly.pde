@@ -114,3 +114,13 @@ void Submit(){
      cp5.remove("Submit");
      cp5.remove("PlayerName");*/
  }
+ 
+ boolean end(){
+   int alive = players.length;
+   for(int i = 0; i<players.length; i++){
+     if(players[i].getMoney()<=0){
+       alive--;
+     }
+   }
+   return alive > 2; 
+ }
