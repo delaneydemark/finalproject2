@@ -13,11 +13,12 @@ public class Board{
  	communityChestCards = new Card[14];
  	board = new Space[40];
  	BufferedReader brSpace = null;
-	FileReader frSpace = null;
+	//FileReader frSpace = null;
 	try{
 
-	    frSpace = new FileReader("properties.csv");
-	    brSpace = new BufferedReader(frSpace);
+	    //frSpace = new FileReader("properties.csv");
+	    //brSpace = new BufferedReader(frSpace);
+      brSpace = createReader("properties.csv");
 
 	    String c = brSpace.readLine();
 	    int j = 0;
@@ -46,6 +47,10 @@ public class Board{
 	}
   setUpCards();
  	
+ }
+ 
+ public void setBoard(Space s, int index){
+   board[index] = s;
  }
   
   public void setUpCards(){

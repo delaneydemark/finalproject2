@@ -22,6 +22,38 @@ void draw(){
  background(0); 
 }
 
+void parseFile(){
+  BufferedReader reader;
+  try{
+    reader= createReader("properties.csv");
+    String c = reader.readLine();
+    int j = 0;
+    while((c = reader.readLine()) != null){
+      String[] cLine = c.split(",");
+      Integer t = Integer.parseInt(cLine[1]);
+      String n = cLine[2];
+      float[] prices = new float[9];
+      prices[0] = Float.parseFloat(cLine[3]);
+      prices[1] = Float.parseFloat(cLine[4]);
+      prices[2] = Float.parseFloat(cLine[5]);
+      prices[3] = Float.parseFloat(cLine[7]);
+      prices[4] = Float.parseFloat(cLine[8]);
+      prices[5] = Float.parseFloat(cLine[9]);
+      prices[6] = Float.parseFloat(cLine[10]);
+      prices[7] = Float.parseFloat(cLine[11]);
+      prices[8] = Float.parseFloat(cLine[12]);
+      Space s = new Space(j,t, n, prices);
+      board.setBoard(s,j);
+      j++;
+    
+    
+    }
+  }catch(IOException e ){
+    e.printStackTrace();
+  }
+  
+}
+
 void TwoPlayers(){
   players = new Player[2];  
 }
