@@ -68,7 +68,20 @@ void parseFile(){
     e.printStackTrace();
   }
   
-  
+  BufferedReader chest;
+  try{
+    chest = createReader("communityChest.csv");
+    String current = chest.readLine();
+    int index = 0;
+    while((current = chest.readLine()) != null){
+      String[] l = current.split(",");
+      Card com = new Card(Float.parseFloat(l[2]), l[1],Integer.parseInt(l[0]));
+      board.setCommunityChest(com, index);
+      index++;
+    }
+  }catch(IOException e){
+    e.printStackTrace();
+  } 
 }
 
 void TwoPlayers(){
