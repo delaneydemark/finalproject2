@@ -123,5 +123,5 @@ void Submit(){
        alive--;
      }
    }
-   return alive <= 2; 
+   return alive < 2; 
  }
