@@ -125,3 +125,7 @@ void Submit(){
    }
    return alive < 2; 
  }
+ 
+ int rollDice(){
+   return 2 + (int)(Math.random() * 11);
+ }
