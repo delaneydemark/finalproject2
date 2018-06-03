@@ -113,6 +113,46 @@ void Submit(){
      cp5.remove("BeginGame");
      cp5.remove("Submit");
      cp5.remove("PlayerName");*/
+     while(!end()){
+      for(int i = 0;i < players.length;i++){
+        turn(players[i]);
+      }
+     }
+ }
+ 
+ void move(Player p){
+  int b = rollDice();
+  int c = rollDice();
+  int d= b+c;
+  p.changeLocation((float) d);
+  if(p.getLocation() - d < 0){
+     p.changeMoney(200); 
+  }
+  board.getArray()[(int)p.getLocation()].evaluate(p,board,(float)d); 
+  if(b==c){
+    move(p);
+  }
+ }
+ 
+ void turn(Player p){
+   if(p.getMoney() >0 && !p.getJail()){
+     move(p);
+   }
+  else if(p.getMoney() > 0 && p.getJail()){
+    if(p.getJailCounter() < 3){
+      if(rollDice() == rollDice()){
+         p.setJail(false);
+         p.changeJailCounter(-1*p.getJailCounter());
+         move(p);
+      }
+      //get out of jail card? and paY TO LEAVE EARLY?
+    }else{
+       p.changeJailCounter(-3);
+       p.setJail(false);
+       p.changeMoney(-50);
+       move(p);
+    }
+  }
  }
 
 // returns true if the game is over, returns false otherwise
