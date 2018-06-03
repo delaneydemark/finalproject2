@@ -145,6 +145,9 @@ void Submit(){
          p.changeJailCounter(-1*p.getJailCounter());
          move(p);
       }
+      else{
+       p.changeJailCounter(1); 
+      }
       //get out of jail card? and paY TO LEAVE EARLY?
     }else{
        p.changeJailCounter(-3);
