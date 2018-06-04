@@ -170,5 +170,5 @@ void Submit(){
  }
  
  int rollDice(){
-   return 2 + (int)(Math.random() * 11);
+   return 1 + (int)(Math.random() * 6);
  }
