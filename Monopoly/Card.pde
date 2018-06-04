@@ -7,7 +7,7 @@ public class Card{
     change = Change;
     description = Description;
     type = t;
-    println("test");
+    //println("test");
  }
  
  public float getChange(){

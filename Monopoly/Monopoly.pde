@@ -4,7 +4,7 @@ import java.io.FileReader;
 import java.io.*;
 import java.util.*;
 
-ControlP5 cp5;
+ControlP5 cp5,cp6;
 Player[] players = new Player[4];
 Board board = new Board();
 float x=0;
@@ -14,6 +14,7 @@ void setup(){
   //work out something 
   size(700,400);
   cp5= new ControlP5(this);
+  cp6 = new ControlP5(this);
   cp5.addButton("TwoPlayers").setPosition(50,50).setSize(50,50);
   cp5.addButton("ThreePlayers").setPosition(150,50).setSize(50,50);
   cp5.addButton("FourPlayers").setPosition(250,50).setSize(50,50);
@@ -103,21 +104,23 @@ void Submit(){
  t = cp5.get(Textfield.class,"PlayerName").getText(); 
  players[(int)x] = new Player(t);
  x++;
- println(players);
+ //println(players);
  }
  
  void BeginGame(){
- /*    cp5.remove("TwoPlayers");
+     /*cp5.remove("TwoPlayers");
      cp5.remove("ThreePlayers");
      cp5.remove("FourPlayers");
      cp5.remove("BeginGame");
      cp5.remove("Submit");
      cp5.remove("PlayerName");*/
-     while(!end()){
+     cp5.hide();
+     cp6.addButton("board").setPosition(0,0).setImage(loadImage("board.jpg")).setSize(100,100);
+     /*while(!end()){
       for(int i = 0;i < players.length;i++){
         turn(players[i]);
       }
-     }
+     }*/
  }
  
  void move(Player p){
