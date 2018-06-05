@@ -126,13 +126,13 @@ void Submit(){
          String test = theEvent.getController().getName();
          println(test);
        }
-     });
+     });*/
 
      /*while(!end()){
       for(int i = 0;i < players.length;i++){
         turn(players[i]);
       }
-     }*/
+     }
  }
  void Help(){
    println("help");
