@@ -171,7 +171,8 @@ void Submit(){
  
  
  void Roll_Dice(){
-   String d =  "12"; //REPLACE WITH A CALL TO MOVE 
+   //String d =  "12"; //REPLACE WITH A CALL TO MOVE 
+   move(rollAgain);
    main.addTextlabel("dice").setPosition(1050,20).setFont(createFont("Calibri",30)).setColor(255)
        .setText(d);
  }
@@ -222,6 +223,20 @@ void Submit(){
        move(p);
     }
   }*/
+ }
+ 
+ void breakingOutOfJail(Player p){
+   if(p.getJailCounter() < 3){
+     int dieOne = rollDice();
+     int dieTwo = rollDice();
+     if(dieOne == dieTwo){
+       p.setJail(false);
+       p.changeJailCounter(-1*p.getJailCounter());
+       move(p);
+     }else{
+       p.changeJailCounter(1);
+     }
+   }
  }
 
 // returns true if the game is over, returns false otherwise
