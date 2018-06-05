@@ -4,7 +4,7 @@ import java.io.FileReader;
 import java.io.*;
 import java.util.*;
 
-ControlP5 cp5,cp6;
+ControlP5 cp5,main;
 Player[] players = new Player[4];
 Board board = new Board();
 float x=0;
@@ -13,8 +13,9 @@ String t ="";
 void setup(){
   //work out something 
   size(700,400);
+  surface.setResizable(true);
   cp5= new ControlP5(this);
-  cp6 = new ControlP5(this);
+  main = new ControlP5(this);
   cp5.addButton("TwoPlayers").setPosition(50,50).setSize(50,50);
   cp5.addButton("ThreePlayers").setPosition(150,50).setSize(50,50);
   cp5.addButton("FourPlayers").setPosition(250,50).setSize(50,50);
@@ -115,12 +116,14 @@ void Submit(){
      cp5.remove("Submit");
      cp5.remove("PlayerName");*/
      cp5.hide();
-     cp6.addButton("board").setPosition(0,0).setImage(loadImage("board.jpg")).setSize(100,100);
-     /*while(!end()){
+     surface.setSize(1100,800);
+     main.addButton("gameBoard").setPosition(0,0).setImage(loadImage("board.jpg"));
+     main.addButton("Roll_Dice").setPosition(900,20).setSize(110,30).setFont(createFont("Calibri",20));
+     while(!end()){
       for(int i = 0;i < players.length;i++){
         turn(players[i]);
       }
-     }*/
+     }
  }
  
  void move(Player p){
@@ -138,7 +141,25 @@ void Submit(){
  }
  
  void turn(Player p){
-   if(p.getMoney() >0 && !p.getJail()){
+   if(p.getJail()){
+     main.addTextlabel("inJail").setPosition(20,710).setFont(createFont("Georgia",30)).setColor(255)
+     .setText("You are in Jail. Max turns left in Jail: "+ (3-p.getJailCounter()));
+     if(p.getGetOutOfJail()>0){     
+       main.addTextlabel("jailCard").setPosition(20,750).setFont(createFont("Georgia",30)).setColor(255)
+       .setText("You have a get out of Jail Card");
+       main.addButton("Use_It").setPosition(525,755).setSize(50,30);
+     }
+   }
+   else{
+     main.addTextlabel("inJail").setPosition(20,710).setFont(createFont("Georgia",20)).setColor(255)
+     .setText("You are not in Jail");
+     main.addTextlabel("location").setPosition(20,740).setFont(createFont("Georgia",40)).setColor(255)
+     .setText("YOU ARE "+ board.getArray()[(int)p.getLocation()].getName());
+   }
+   main.addTextlabel("money").setPosition(720,20).setFont(createFont("Georgia",30)).setColor(255)
+     .setText("Cash: "+ p.getMoney());
+     main.addButton("Roll_Dice").setPosition(800,20).setSize(50,30).setFont(createFont("Calibri",20));
+  /*if(p.getMoney() >0 && !p.getJail()){
      move(p);
    }
   else if(p.getMoney() > 0 && p.getJail()){
@@ -158,7 +179,7 @@ void Submit(){
        p.changeMoney(-50);
        move(p);
     }
-  }
+  }*/
  }
 
 // returns true if the game is over, returns false otherwise
