@@ -9,6 +9,7 @@ Player[] players = new Player[4];
 Board board = new Board();
 float x=0;
 String t ="";
+Player rollAgain;
 
 void setup(){
   //work out something 
@@ -162,7 +163,8 @@ void Submit(){
   board.getArray()[(int)p.getLocation()].evaluate(p,board,(float)d); 
   if(b==c){
     main.addTextlabel("rollAgain").setPosition(900,60).setFont(createFont("Calibri",30)).setColor(255).setText("You rolled doubles. Roll again!");
-    move(p); // INSTEAD ASK THEM TO ROLL AGAIN...WORK OUT HOW TO GET P(MAYBE CREATE AN INSTANVCE VARIABLE KEEPING TRACK OF PLAYER
+    //move(p); // INSTEAD ASK THEM TO ROLL AGAIN...WORK OUT HOW TO GET P(MAYBE CREATE AN INSTANVCE VARIABLE KEEPING TRACK OF PLAYER
+    rollAgain = p;
   }
   return d;
  }
