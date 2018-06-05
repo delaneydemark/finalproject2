@@ -120,14 +120,13 @@ void Submit(){
     //background(0);
      surface.setSize(1100,800);
      main.addButton("gameBoard").setPosition(0,0).setImage(loadImage("board.jpg"));
-     main.addButton("Help").setPosition(720,90).setSize(200,25);
-     main.addButton("Roll").setPosition(720,130).setSize(200,25);
-     /*.onPress(new CallbackListener(){
+     main.addButton("Help").setPosition(720,90).setSize(200,25)
+     .onPress(new CallbackListener(){
        public void controlEvent(CallbackEvent theEvent){
          String test = theEvent.getController().getName();
          println(test);
        }
-     });*/
+     });
 
      /*while(!end()){
       for(int i = 0;i < players.length;i++){
@@ -138,12 +137,10 @@ void Submit(){
  
  void Help(){
    println("help");
-   main.addButton("clicked").setPosition(930, 90).setSize(100,25);
+   main.addButton("clicked").setPosition(930, 90).setSize(100,25).show();
  }
  
- void Roll(){
-   println("3 3");
- }
+ 
  int move(Player p){
   int b = rollDice();
   int c = rollDice();
