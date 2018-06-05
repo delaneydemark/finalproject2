@@ -4,32 +4,56 @@ import java.io.FileReader;
 import java.io.*;
 import java.util.*;
 
-ControlP5 cp5,main,prop;
+ControlP5 cp5,main,prop,ind;
+controlP5.Button b,s,c;
+controlP5.Textlabel t;
 Player[] players = new Player[4];
 Board board = new Board();
 float x=0;
-String t ="";
-Player rollAgain;
+Player player;
+boolean rollAgain;
+Space currentProp;
 
 void setup(){
   //work out something 
   size(700,400);
+  rollAgain = false;
   surface.setResizable(true);
   cp5= new ControlP5(this);
   main = new ControlP5(this);
   prop = new ControlP5(this);
-  cp5.addButton("TwoPlayers").setPosition(50,50).setSize(50,50);
-  cp5.addButton("ThreePlayers").setPosition(150,50).setSize(50,50);
-  cp5.addButton("FourPlayers").setPosition(250,50).setSize(50,50);
-  cp5.addTextfield("PlayerName").setPosition(20,200).setSize(200,40).setAutoClear(false);
-  cp5.addButton("Submit").setPosition(240,200).setSize(80,40);
-  cp5.addButton("BeginGame").setPosition(600,300).setSize(80,40);
+  ind = new ControlP5(this);
+  t= ind.addTextlabel("info").setPosition(720,50).setFont(createFont("Calibri",20)).setColor(255);
+  b= ind.addButton("Buy_House").setPosition(720,350).setSize(100,50);
+  s= ind.addButton("Sell_House").setPosition(850,350).setSize(100,50);
+  c= ind.addButton("Close").setPosition(1000,350).setSize(50,50);
+  ind.hide();
+  cp5.addButton("Two_Players").setPosition(50,50).setSize(175,50).setFont(createFont("Calibri",20));
+  cp5.addButton("Three_Players").setPosition(275,50).setSize(175,50).setFont(createFont("Calibri",20));
+  cp5.addButton("Four_Players").setPosition(500,50).setSize(175,50).setFont(createFont("Calibri",20));
+  cp5.addTextfield("Player_Name").setPosition(20,200).setSize(200,40).setAutoClear(false).setFont(createFont("Calibri",20));
+  cp5.addButton("Submit").setPosition(240,200).setSize(100,40).setFont(createFont("Calibri",20));
+  cp5.addButton("Begin_Game").setPosition(500,300).setSize(150,40).setFont(createFont("Calibri",20));
   parseFile();
 }
 
-void Work(){
-  println("clicked");
+void Buy_House(){
+  if(currentProp.getHouses() < 5){
+    currentProp.addHouses(1);
+    player.changeMoney((-1)*currentProp.getPrices()[8]);  
+  }
 }
+void Sell_House(){
+  if(currentProp.getHouses() > 0){
+   currentProp.addHouses(-1);
+   player.changeMoney(currentProp.getPrices()[8]);
+  }
+}
+void Close(){
+  ind.hide();
+  prop.show();
+}
+
 void draw(){
  background(0); 
 }
@@ -95,25 +119,25 @@ void parseFile(){
   } 
 }
 
-void TwoPlayers(){
+void Two_Players(){
   players = new Player[2];  
 }
 
-void ThreePlayers(){
+void Three_Players(){
   players = new Player[3];  
 }
 
-void FourPlayers(){
+void Four_Players(){
   players = new Player[4];  
 }
 void Submit(){
- t = cp5.get(Textfield.class,"PlayerName").getText(); 
+ String t = cp5.get(Textfield.class,"PlayerName").getText(); 
  players[(int)x] = new Player(t);
  x++;
  //println(players);
  }
  
- void BeginGame(){
+ void Begin_Game(){
      /*cp5.remove("TwoPlayers");
      cp5.remove("ThreePlayers");
      cp5.remove("FourPlayers");
@@ -124,19 +148,20 @@ void Submit(){
     //background(0);
      surface.setSize(1100,800);
      main.addButton("gameBoard").setPosition(0,0).setImage(loadImage("board.jpg"));
-     main.addButton("Help").setPosition(720,90).setSize(200,25)
+
+     /*main.addButton("Help").setPosition(720,90).setSize(200,25)
      .onPress(new CallbackListener(){
        public void controlEvent(CallbackEvent theEvent){
          String test = theEvent.getController().getName();
          println(test);
        }
-     });
+     });*/
 
-     /*while(!end()){
+     while(!end()){
       for(int i = 0;i < players.length;i++){
         turn(players[i]);
       }
-     }*/
+     }
  }
  
  void Help(){
@@ -145,29 +170,39 @@ void Submit(){
  }
  
  
- int move(Player p, int b, int c){
+ int move(Player pl, int b, int c){
   /*int b = rollDice();
   int c = rollDice();*/
   int d= b+c;
-  p.changeLocation((float) d);
-  if(p.getLocation() - d < 0){
-     p.changeMoney(200); 
+  pl.changeLocation((float) d);
+  if(pl.getLocation() - d < 0){
+     pl.changeMoney(200); 
   }
-  board.getArray()[(int)p.getLocation()].evaluate(p,board,(float)d); 
+  board.getArray()[(int)pl.getLocation()].evaluate(pl,board,(float)d); 
   if(b==c){
     main.addTextlabel("rollAgain").setPosition(900,60).setFont(createFont("Calibri",30)).setColor(255).setText("You rolled doubles. Roll again!");
     //move(p); // INSTEAD ASK THEM TO ROLL AGAIN...WORK OUT HOW TO GET P(MAYBE CREATE AN INSTANVCE VARIABLE KEEPING TRACK OF PLAYER
-    rollAgain = p;
+    player =pl;
+    rollAgain = true;
   }
   return d;
  }
  
  
  void Roll_Dice(){
-   String d =  "12"; //REPLACE WITH A CALL TO MOVE 
    int b = rollDice();
    int c = rollDice();
-   move(rollAgain, b, c);
+   String d= "" + (b+c);
+   if(player.getJail()){
+      breakingOutOfJail(player,b,c); 
+   }
+   else if(rollAgain){
+     rollAgain= false;
+     move(player, b, c);
+   }
+   else{
+     move(player,b,c);
+   }
    main.addTextlabel("dice").setPosition(1050,20).setFont(createFont("Calibri",30)).setColor(255)
        .setText(d);
  }
@@ -186,7 +221,7 @@ void Submit(){
      main.addTextlabel("inJail").setPosition(20,710).setFont(createFont("Calibri",20)).setColor(255)
      .setText("You are not in Jail");
      main.addTextlabel("location").setPosition(20,740).setFont(createFont("Calibri",40)).setColor(255)
-     .setText("YOU ARE "+ board.getArray()[(int)p.getLocation()].getName());
+     .setText("YOU ARE AT "+ board.getArray()[(int)p.getLocation()].getName());
    }
    main.addTextlabel("money").setPosition(720,20).setFont(createFont("Calibri",30)).setColor(255)
      .setText("Cash: "+ p.getMoney());
@@ -194,22 +229,32 @@ void Submit(){
    prop.addTextlabel("props").setPosition(720,50).setFont(createFont("Calibri",30)).setColor(255)
      .setText("PROPERTIES");
   for(int i = 0; i < p.getProperties().size();i++){
-        prop.addButton(""+i).setPosition(720,90+(30*i)).setSize(200,25).setFont(createFont("Calibri",20)).setLabel(board.getArray()[p.getProperties().get(i)].getName());
+       prop.addButton(""+i).setPosition(720,90+(30*i)).setSize(200,25).setFont(createFont("Calibri",20)).setLabel(board.getArray()[p.getProperties().get(i)].getName())
+      .onPress(new CallbackListener(){
+       public void controlEvent(CallbackEvent theEvent){
+         prop.hide();
+         ind.show();
+         currentProp = board.getArray()[player.getProperties().get(Integer.parseInt(theEvent.getController().getName()))];
+         float[] ps = currentProp.getPrices();
+         t.setText(currentProp.getName()+"\nPrice: $"+ps[0]+"   Rent: $"+ps[2]+"\nWith 1 House:  $"+ps[3]+"\nWith 2 Houses:  $"+ps[4]+"\nWith 3 Houses:  $"+ps[5]+"\nWith 4 Houses:  $"+ps[6]+"\nWith a Hotel:  $"+ps[7]+"\nOne House Costs: $"+ps[8]+"\nMortgage Value: $"+ps[1]+"\nYou have "+ currentProp.getHouses()+" houses");
+       }
+     });
   }
+  
+  
+  
      //WORK OUT HOW TO REDISTRIBUTE OUT CODE BELOW
   if(p.getMoney() >0 && !p.getJail()){
-     int b = rollDice();
-     int c = rollDice();
-     move(p, b, c);
-   }
+     player = p;
+  }
   else if(p.getMoney() > 0 && p.getJail()){
-    breakingOutOfJail(p);
+    player = p;
   }
  }
  
- void breakingOutOfJail(Player p){
-   int dieOne = rollDice();
-   int dieTwo = rollDice();
+ void breakingOutOfJail(Player p,int b,int c){
+   int dieOne = b;
+   int dieTwo =c;
    if(p.getJailCounter() < 3){
      // if the player rolls doubles, they are free
      if(dieOne == dieTwo){
