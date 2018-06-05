@@ -152,9 +152,9 @@ void Submit(){
  }
  
  
- int move(Player p){
-  int b = rollDice();
-  int c = rollDice();
+ int move(Player p, int b, int c){
+  /*int b = rollDice();
+  int c = rollDice();*/
   int d= b+c;
   p.changeLocation((float) d);
   if(p.getLocation() - d < 0){
@@ -171,8 +171,10 @@ void Submit(){
  
  
  void Roll_Dice(){
-   //String d =  "12"; //REPLACE WITH A CALL TO MOVE 
-   move(rollAgain);
+   String d =  "12"; //REPLACE WITH A CALL TO MOVE 
+   int b = rollDice();
+   int c = rollDice();
+   move(rollAgain, b, c);
    main.addTextlabel("dice").setPosition(1050,20).setFont(createFont("Calibri",30)).setColor(255)
        .setText(d);
  }
@@ -203,7 +205,9 @@ void Submit(){
   }
      //WORK OUT HOW TO REDISTRIBUTE OUT CODE BELOW
   if(p.getMoney() >0 && !p.getJail()){
-     move(p);
+     int b = rollDice();
+     int c = rollDice();
+     move(p, b, c);
    }
   else if(p.getMoney() > 0 && p.getJail()){
     breakingOutOfJail(p);
@@ -211,14 +215,14 @@ void Submit(){
  }
  
  void breakingOutOfJail(Player p){
+   int dieOne = rollDice();
+   int dieTwo = rollDice();
    if(p.getJailCounter() < 3){
-     int dieOne = rollDice();
-     int dieTwo = rollDice();
      // if the player rolls doubles, they are free
      if(dieOne == dieTwo){
        p.setJail(false);
        p.changeJailCounter(-1*p.getJailCounter());
-       move(p);
+       move(p, dieOne, dieTwo);
       // if the player doesn't roll doubles and has had less 
       //than three turns in jail, stay in jail
      }else{
@@ -229,7 +233,7 @@ void Submit(){
      p.changeMoney(-50);
      p.setJail(false);
      p.changeJailCounter(-3);
-     move(p);
+     move(p, dieOne, dieTwo);
    }
  }
 
