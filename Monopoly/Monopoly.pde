@@ -23,14 +23,7 @@ void setup(){
   cp5.addButton("FourPlayers").setPosition(250,50).setSize(50,50);
   cp5.addTextfield("PlayerName").setPosition(20,200).setSize(200,40).setAutoClear(false);
   cp5.addButton("Submit").setPosition(240,200).setSize(80,40);
-  cp5.addButton("BeginGame").setPosition(600,300).setSize(80,40)
-  .onPress(new CallbackListener(){
-       public void controlEvent(CallbackEvent theEvent){
-         String test = theEvent.getController().getName();
-         println(test);
-         main.addButton("Work").setPosition(930,90).setSize(100,25);
-       }
-     });
+  cp5.addButton("BeginGame").setPosition(600,300).setSize(80,40);
   parseFile();
 }
 
@@ -148,7 +141,7 @@ void Submit(){
  
  void Help(){
    println("help");
-   main.addButton("clicked").setPosition(930, 90).setSize(100,25).show();
+   //main.addButton("clicked").setPosition(930, 90).setSize(100,25).show();
  }
  
  
