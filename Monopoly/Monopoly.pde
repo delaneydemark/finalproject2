@@ -13,6 +13,7 @@ float x=0;
 Player player;
 boolean rollAgain;
 Space currentProp;
+int index;
 
 void setup(){
   //work out something 
@@ -131,7 +132,7 @@ void Four_Players(){
   players = new Player[4];  
 }
 void Submit(){
- String t = cp5.get(Textfield.class,"PlayerName").getText(); 
+ String t = cp5.get(Textfield.class,"Player_Name").getText(); 
  players[(int)x] = new Player(t);
  x++;
  //println(players);
@@ -148,6 +149,7 @@ void Submit(){
     //background(0);
      surface.setSize(1100,800);
      main.addButton("gameBoard").setPosition(0,0).setImage(loadImage("board.jpg"));
+     main.addButton("End_Turn").setPosition(1050,825).setSize(100,50).setFont(createFont("Calibri",20));
 
      /*main.addButton("Help").setPosition(720,90).setSize(200,25)
      .onPress(new CallbackListener(){
@@ -157,16 +159,22 @@ void Submit(){
        }
      });*/
 
-     while(!end()){
-      for(int i = 0;i < players.length;i++){
-        turn(players[i]);
-      }
-     }
+     turn(players[0]);
  }
- 
- void Help(){
-   println("help");
-   //main.addButton("clicked").setPosition(930, 90).setSize(100,25).show();
+
+ void EndTurn(){
+   index++;
+   boolean found = false;
+    for(int i=0;i < players.length;i++){
+      if(players[(index%players.length)+i].getMoney() >0&&!found){
+       turn(players[(index%4) + i]);
+       index+= i;
+       found = true;
+      }
+    }
+    if(!found){
+      main.addTextlabel("GAME OVER").setPosition(20,450).setFont(createFont("Calibri",30)).setColor(1255);
+    }
  }
  
  
@@ -221,7 +229,7 @@ void Submit(){
      main.addTextlabel("inJail").setPosition(20,710).setFont(createFont("Calibri",20)).setColor(255)
      .setText("You are not in Jail");
      main.addTextlabel("location").setPosition(20,740).setFont(createFont("Calibri",40)).setColor(255)
-     .setText("YOU ARE AT "+ board.getArray()[(int)p.getLocation()].getName());
+     .setText("You Are At "+ board.getArray()[(int)p.getLocation()].getName());
    }
    main.addTextlabel("money").setPosition(720,20).setFont(createFont("Calibri",30)).setColor(255)
      .setText("Cash: "+ p.getMoney());
