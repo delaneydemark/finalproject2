@@ -119,8 +119,8 @@ void Submit(){
      cp5.hide();
     //background(0);
      surface.setSize(1100,800);
-     cp5.addButton("gameBoard").setPosition(0,0).setImage(loadImage("board.jpg"));
-     cp5.addButton("help").setPosition(720,90).setSize(200,25)
+     main.addButton("gameBoard").setPosition(0,0).setImage(loadImage("board.jpg"));
+      main.addButton("help").setPosition(720,90).setSize(200,25)
      .onPress(new CallbackListener(){
        public void controlEvent(CallbackEvent theEvent){
          String test = theEvent.getController().getName();
