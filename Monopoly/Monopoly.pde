@@ -202,42 +202,37 @@ void Submit(){
         prop.addButton(""+i).setPosition(720,90+(30*i)).setSize(200,25).setFont(createFont("Calibri",20)).setLabel(board.getArray()[p.getProperties().get(i)].getName());
   }
      //WORK OUT HOW TO REDISTRIBUTE OUT CODE BELOW
-  /*if(p.getMoney() >0 && !p.getJail()){
+  if(p.getMoney() >0 && !p.getJail()){
      move(p);
    }
   else if(p.getMoney() > 0 && p.getJail()){
-    if(p.getJailCounter() < 3){
-      if(rollDice() == rollDice()){
-         p.setJail(false);
-         p.changeJailCounter(-1*p.getJailCounter());
-         move(p);
-      }
-      else{
-       p.changeJailCounter(1); 
-      }
-      //get out of jail card? and paY TO LEAVE EARLY?
-    }else{
-       p.changeJailCounter(-3);
-       p.setJail(false);
-       p.changeMoney(-50);
-       move(p);
-    }
-  }*/
+    breakingOutOfJail(p);
+  }
  }
  
  void breakingOutOfJail(Player p){
    if(p.getJailCounter() < 3){
      int dieOne = rollDice();
      int dieTwo = rollDice();
+     // if the player rolls doubles, they are free
      if(dieOne == dieTwo){
        p.setJail(false);
        p.changeJailCounter(-1*p.getJailCounter());
        move(p);
+      // if the player doesn't roll doubles and has had less 
+      //than three turns in jail, stay in jail
      }else{
        p.changeJailCounter(1);
      }
+     // if the player has spent three turns in jail, pay 50 & free
+   }else{
+     p.changeMoney(-50);
+     p.setJail(false);
+     p.changeJailCounter(-3);
+     move(p);
    }
  }
+
 
 // returns true if the game is over, returns false otherwise
  boolean end(){
