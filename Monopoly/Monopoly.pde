@@ -5,8 +5,8 @@ import java.io.*;
 import java.util.*;
 
 ControlP5 cp5,main,prop,ind;
-controlP5.Button b,s,c;
-controlP5.Textlabel t;
+controlP5.Button b,s,c,uC;
+controlP5.Textlabel t,rA, dice, iJ, jC,loc,name,money,propert;
 Player[] players = new Player[4];
 Board board = new Board();
 float x=0;
@@ -14,6 +14,7 @@ Player player;
 boolean rollAgain;
 Space currentProp;
 int index;
+controlP5.Button[] please = new controlP5.Button[28]; 
 
 void setup(){
   //work out something 
@@ -139,31 +140,41 @@ void Submit(){
  }
  
  void Begin_Game(){
-     /*cp5.remove("TwoPlayers");
-     cp5.remove("ThreePlayers");
-     cp5.remove("FourPlayers");
-     cp5.remove("BeginGame");
-     cp5.remove("Submit");
-     cp5.remove("PlayerName");*/
      cp5.hide();
-    //background(0);
      main.addButton("gameBoard").setPosition(0,0).setImage(loadImage("board.jpg"));
      main.addButton("End_Turn").setPosition(950,825).setSize(100,50).setFont(createFont("Calibri",20));
-       main.addButton("Roll_Dice").setPosition(925,70).setSize(115,30).setFont(createFont("Calibri",20));
-
-     /*main.addButton("Help").setPosition(720,90).setSize(200,25)
-     .onPress(new CallbackListener(){
-       public void controlEvent(CallbackEvent theEvent){
-         String test = theEvent.getController().getName();
-         println(test);
-       }
-     });*/
-
+     main.addButton("Roll_Dice").setPosition(925,70).setSize(115,30).setFont(createFont("Calibri",20));
+     rA = main.addTextlabel("rollAgain").setPosition(900,110).setFont(createFont("Calibri",30)).setColor(255).setText("");
+    dice = main.addTextlabel("dice").setPosition(1050,70).setFont(createFont("Calibri",30)).setColor(255).setText("");
+     iJ = main.addTextlabel("inJail").setPosition(20,710).setFont(createFont("Calibri",30)).setColor(255).setText("");
+     jC =  main.addTextlabel("jailCard").setPosition(20,750).setFont(createFont("Calibri",30)).setColor(255).setText("");
+     uC = main.addButton("Use_It").setPosition(525,755).setSize(50,30);
+     loc = main.addTextlabel("location").setPosition(20,740).setFont(createFont("Calibri",40)).setColor(255).setText("");
+     name = main.addTextlabel("name").setPosition(720,20).setFont(createFont("Calibri",30)).setColor(255).setText("");
+     money = main.addTextlabel("money").setPosition(720,70).setFont(createFont("Calibri",30)).setColor(255).setText("");
+     propert = prop.addTextlabel("props").setPosition(720,1200).setFont(createFont("Calibri",30)).setColor(255);
+     for(int i = 0; i <28;i++){
+       please[i] = prop.addButton(""+i).setPosition(720,150+(30*i)).setSize(200,25).setFont(createFont("Calibri",20));
+     }    
+     uC.hide();
      turn(players[0]);
+ }
+ 
+ void Use_It(){
+  player.setGetOutOfJail(-1);
+  player.setJail(false);
+  player.changeJailCounter(-1*player.getJailCounter());
+  move(player, rollDice(), rollDice());
  }
 
  void EndTurn(){
    index++;
+   dice.setText("");
+   iJ.setText("");
+   uC.hide();
+   name.setText("");
+   money.setText("");
+   propert.setText("");
    boolean found = false;
     for(int i=0;i < players.length;i++){
       if(players[(index%players.length)+i].getMoney() >0&&!found){
@@ -183,12 +194,14 @@ void Submit(){
   int c = rollDice();*/
   int d= b+c;
   pl.changeLocation((float) d);
+  loc.setText("You Are At "+ board.getArray()[(int)p.getLocation()].getName());
   if(pl.getLocation() - d < 0){
      pl.changeMoney(200); 
   }
   board.getArray()[(int)pl.getLocation()].evaluate(pl,board,(float)d); 
   if(b==c){
-    main.addTextlabel("rollAgain").setPosition(900,110).setFont(createFont("Calibri",30)).setColor(255).setText("You rolled doubles. Roll again!");
+    rA.setText("You rolled doubles. Roll again!");
+    //main.addTextlabel("rollAgain").setPosition(900,110).setFont(createFont("Calibri",30)).setColor(255).setText("You rolled doubles. Roll again!");
     //move(p); // INSTEAD ASK THEM TO ROLL AGAIN...WORK OUT HOW TO GET P(MAYBE CREATE AN INSTANVCE VARIABLE KEEPING TRACK OF PLAYER
     player =pl;
     rollAgain = true;
@@ -201,8 +214,8 @@ void Submit(){
    int b = rollDice();
    int c = rollDice();
    String d= "" + (b+c);
-   main.addTextlabel("dice").setPosition(1050,70).setFont(createFont("Calibri",30)).setColor(255)
-       .setText(d);
+   rA.setText("");
+   dice.setText(d);
    if(player.getJail()){
       breakingOutOfJail(player,b,c); 
    }
@@ -217,28 +230,21 @@ void Submit(){
  
  void turn(Player p){
    if(p.getJail()){
-     main.addTextlabel("inJail").setPosition(20,710).setFont(createFont("Calibri",30)).setColor(255)
-     .setText("You are in Jail. Max turns left in Jail: "+ (3-p.getJailCounter()));
+     iJ.setText("You are in Jail. Max turns left in Jail: "+ (3-p.getJailCounter()));
      if(p.getGetOutOfJail()>0){     
-       main.addTextlabel("jailCard").setPosition(20,750).setFont(createFont("Calibri",30)).setColor(255)
-       .setText("You have a get out of Jail Card");
-       main.addButton("Use_It").setPosition(525,755).setSize(50,30);
+       jC.setText("You have a get out of Jail Card");
+       uC.show();
      }
    }
    else{
-     main.addTextlabel("inJail").setPosition(20,710).setFont(createFont("Calibri",20)).setColor(255)
-     .setText("You are not in Jail");
-     main.addTextlabel("location").setPosition(20,740).setFont(createFont("Calibri",40)).setColor(255)
-     .setText("You Are At "+ board.getArray()[(int)p.getLocation()].getName());
+     iJ.setText("You are not in Jail");
+     loc.setText("You Are At "+ board.getArray()[(int)p.getLocation()].getName());
    }
-   main.addTextlabel("name").setPosition(720,20).setFont(createFont("Calibri",30)).setColor(255)
-     .setText(p.getName()+ "'s Turn");
-   main.addTextlabel("money").setPosition(720,70).setFont(createFont("Calibri",30)).setColor(255)
-     .setText("Cash: "+ p.getMoney());
-   prop.addTextlabel("props").setPosition(720,1200).setFont(createFont("Calibri",30)).setColor(255)
-     .setText("PROPERTIES");
+   name.setText(p.getName()+ "'s Turn");
+   money.setText("Cash: "+ p.getMoney());
+   propert.setText("PROPERTIES");
   for(int i = 0; i < p.getProperties().size();i++){
-       prop.addButton(""+i).setPosition(720,150+(30*i)).setSize(200,25).setFont(createFont("Calibri",20)).setLabel(board.getArray()[p.getProperties().get(i)].getName())
+       please[i].setLabel(board.getArray()[p.getProperties().get(i)].getName())
       .onPress(new CallbackListener(){
        public void controlEvent(CallbackEvent theEvent){
          prop.hide();
@@ -249,9 +255,9 @@ void Submit(){
        }
      });
   }
-  
-  
-  
+  for(int i = p.getProperties().size();i < 28;i++){
+       please[i].setLabel("");
+  }
      //WORK OUT HOW TO REDISTRIBUTE OUT CODE BELOW
   if(p.getMoney() >0 && !p.getJail()){
      player = p;
