@@ -13,12 +13,12 @@ float x=0;
 Player player;
 boolean rollAgain;
 Space currentProp;
-int index;
+int index=0;
 controlP5.Button[] please = new controlP5.Button[28]; 
 
 void setup(){
   //work out something 
-  size(1100,900);
+  size(1100,850);
   rollAgain = false;
   surface.setResizable(true);
   cp5= new ControlP5(this);
@@ -142,7 +142,7 @@ void Submit(){
  void Begin_Game(){
      cp5.hide();
      main.addButton("gameBoard").setPosition(0,0).setImage(loadImage("board.jpg"));
-     main.addButton("End_Turn").setPosition(950,825).setSize(100,50).setFont(createFont("Calibri",20));
+     main.addButton("End_Turn").setPosition(950,725).setSize(100,50).setFont(createFont("Calibri",20));
      main.addButton("Roll_Dice").setPosition(925,70).setSize(115,30).setFont(createFont("Calibri",20));
      rA = main.addTextlabel("rollAgain").setPosition(900,110).setFont(createFont("Calibri",30)).setColor(255).setText("");
     dice = main.addTextlabel("dice").setPosition(1050,70).setFont(createFont("Calibri",30)).setColor(255).setText("");
@@ -178,7 +178,7 @@ void Submit(){
    boolean found = false;
     for(int i=0;i < players.length;i++){
       if(players[(index%players.length)+i].getMoney() >0&&!found){
-       turn(players[(index%4) + i]);
+       turn(players[(index%players.length) + i]);
        index+= i;
        found = true;
       }
@@ -244,7 +244,7 @@ void Submit(){
    money.setText("Cash: "+ p.getMoney());
    propert.setText("PROPERTIES");
   for(int i = 0; i < p.getProperties().size();i++){
-       please[i].setLabel(board.getArray()[p.getProperties().get(i)].getName())
+       please[i].setLabel(board.getArray()[p.getProperties().get(i)].getName()).show()
       .onPress(new CallbackListener(){
        public void controlEvent(CallbackEvent theEvent){
          prop.hide();
@@ -256,7 +256,7 @@ void Submit(){
      });
   }
   for(int i = p.getProperties().size();i < 28;i++){
-       please[i].setLabel("");
+       please[i].hide();
   }
      //WORK OUT HOW TO REDISTRIBUTE OUT CODE BELOW
   if(p.getMoney() >0 && !p.getJail()){
