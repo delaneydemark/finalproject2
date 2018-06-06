@@ -194,7 +194,7 @@ void Submit(){
   int c = rollDice();*/
   int d= b+c;
   pl.changeLocation((float) d);
-  loc.setText("You Are At "+ board.getArray()[(int)p.getLocation()].getName());
+  loc.setText("You Are At "+ board.getArray()[(int)pl.getLocation()].getName());
   if(pl.getLocation() - d < 0){
      pl.changeMoney(200); 
   }
