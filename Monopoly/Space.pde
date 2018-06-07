@@ -100,7 +100,7 @@ public class Space extends Monopoly{
            public void controlEvent(CallbackEvent theEvent){
              pl.changeMoney(-1*prices[0]);
              owner = pl;
-             p.addProperties(index);
+             pl.addProperties(index);
              if(index % 5 != 0){
               pl.setUCounter(1); 
              }
@@ -148,13 +148,13 @@ public class Space extends Monopoly{
       else if(c.getType().equals(4)){
          p.setLocation(c.getChange()); 
       }
-      info.setText("Community Chest Card: "+c.getDecsription);
+      info.setText("Community Chest Card: "+c.getDescription());
     }
     else if (type.equals(3)){
       Card c = board.getChanceCard();
       if(c.getType().equals(0)){
          p.changeLocation(c.getChange());
-         b.getArray()[(int) p.getLocation()].evaluate(p,b,d);
+         b.getArray()[(int) p.getLocation()].evaluate(p,b,d, buy, info);
       }
       else if(c.getType().equals(1)){
          p.changeMoney(c.getChange());
@@ -165,11 +165,11 @@ public class Space extends Monopoly{
       else if(c.getType().equals(4)){
          p.setLocation(c.getChange()); 
       }
-      info.setText("Chance Card: "+c.getDecsription);
+      info.setText("Chance Card: "+c.getDescription());
     }
     else if (type.equals(4)){
       p.changeMoney(-1*prices[2]);
-      info.setTest("You paid $"+prices[2]+".");
+      info.setText("You paid $"+prices[2]+".");
     }
   }
 }
