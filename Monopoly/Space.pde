@@ -9,7 +9,9 @@ public class Space extends Monopoly{
  float[] prices;
  Integer houses;
  Player owner;
+ boolean mortgage = false;
  int index;
+ Player pl;
  
  public Space(int ind, Integer Type, String Name, float[] Prices){
    type = Type;
@@ -24,6 +26,14 @@ public class Space extends Monopoly{
  }
  public void setOwner(Player own){
    owner = own; 
+ }
+ 
+ public boolean getMortgage(){
+  return mortgage; 
+ }
+ 
+ public void setMortgage(boolean m){
+  mortgage = m; 
  }
   
   
@@ -48,17 +58,21 @@ public class Space extends Monopoly{
   }
   
   
-  public void evaluate(Player p, Board b, float d){
+  public void evaluate(Player p, Board b, float d,controlP5.Button buy, controlP5.Textlabel info){
     if(type.equals(0)){
       if(owner.equals(null)){//not the problem
       //NULL POINTER EXCEPTION THROWN FOR THIS IF STATEMENT
         //check if want to buy
-        boolean buy = true;
-        if(buy){
-         p.changeMoney(-1*prices[0]);//prices not the problem
-         owner = p;
-         p.addProperties(index);
-        }
+        pl = p;
+        info.setText("Nobody owns this, would you Like to buy it?");
+        buy.show()
+         .onPress(new CallbackListener(){
+           public void controlEvent(CallbackEvent theEvent){
+             pl.changeMoney(-1*prices[0]);//prices not the problem
+             owner = pl;
+             pl.addProperties(index);
+           }
+         });
       }/*
       else if(!owner.equals(p)){
         float rent = 0;
@@ -70,6 +84,7 @@ public class Space extends Monopoly{
         }
         p.changeMoney(-1*rent);
         owner.changeMoney(rent);
+        info.setText(owner.getName()+" owns this. You paid them $"+rent+" in rent.");
       }*/
     }/*
     else if (type.equals(1)){
@@ -79,18 +94,22 @@ public class Space extends Monopoly{
       }        
       if(owner.equals(null)){
         //check if want to buy
-        boolean buy = true;
-        if(buy){
-         p.changeMoney(-1*prices[0]);
-         owner = p;
-         p.addProperties(index);
-         if(n == 0){
-          p.setUCounter(1); 
-         }
-         else{
-          p.setRRCounter(1); 
-         }
-        }
+        pl = p;
+        info.setText("Nobody owns this, would you Like to buy it?");
+        buy.show()
+         .onPress(new CallbackListener(){
+           public void controlEvent(CallbackEvent theEvent){
+             pl.changeMoney(-1*prices[0]);
+             owner = pl;
+             p.addProperties(index);
+             if(index % 5 != 0){
+              pl.setUCounter(1); 
+             }
+             else{
+              pl.setRRCounter(1); 
+             }
+           }
+         });
       }
       else if(!owner.equals(p)){
         int t = 0;
@@ -116,6 +135,7 @@ public class Space extends Monopoly{
          }
         p.changeMoney(-1*rent);
         owner.changeMoney(rent);
+        info.setText(owner.getName()+" owns this. You paid them $"+rent+" in rent.");
       }
     }
     else if (type.equals(2)){
@@ -129,6 +149,7 @@ public class Space extends Monopoly{
       else if(c.getType().equals(4)){
          p.setLocation(c.getChange()); 
       }
+      info.setText("Community Chest Card: "+c.getDecsription);
     }
     else if (type.equals(3)){
       Card c = board.getChanceCard();
@@ -145,9 +166,11 @@ public class Space extends Monopoly{
       else if(c.getType().equals(4)){
          p.setLocation(c.getChange()); 
       }
+      info.setText("Chance Card: "+c.getDecsription);
     }
     else if (type.equals(4)){
       p.changeMoney(-1*prices[2]);
+      info.setTest("You paid $"+prices[2]+".");
     }*/
   }
 }

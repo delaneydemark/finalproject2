@@ -5,8 +5,8 @@ import java.io.*;
 import java.util.*;
 
 ControlP5 cp5,main,prop,ind;
-controlP5.Button b,s,c,uC;
-controlP5.Textlabel t,rA, dice, iJ, jC,loc,name,money,propert;
+controlP5.Button b,s,c,uC,buy,m, um;
+controlP5.Textlabel t,rA, dice, iJ, jC,loc,name,money,propert,info;
 Player[] players = new Player[4];
 Board board = new Board();
 float x=0;
@@ -28,7 +28,11 @@ void setup(){
   t= ind.addTextlabel("info").setPosition(720,50).setFont(createFont("Calibri",20)).setColor(255);
   b= ind.addButton("Buy_House").setPosition(720,350).setSize(100,50);
   s= ind.addButton("Sell_House").setPosition(850,350).setSize(100,50);
-  c= ind.addButton("Close").setPosition(1000,350).setSize(50,50);
+  c= ind.addButton("Close").setPosition(1000,420).setSize(50,50);
+  m = ind.addButton("Mortgage_Property").setPosition(720,420).setSize(50,50);
+  um = ind.addButton("Unmortgage_Property").setPosition(720,420).setSize(50,50);
+  um.hide();
+  m.hide();
   ind.hide();
   cp5.addButton("Two_Players").setPosition(50,50).setSize(175,50).setFont(createFont("Calibri",20));
   cp5.addButton("Three_Players").setPosition(275,50).setSize(175,50).setFont(createFont("Calibri",20));
@@ -54,6 +58,19 @@ void Sell_House(){
 void Close(){
   ind.hide();
   prop.show();
+}
+
+void Mortgage_Property(){
+  currentProp.setMortgage(true);
+  player.changeMoney(currentProp.getPrices()[1]);
+  m.hide();
+  um.show();
+}
+void Unmortgage_Property(){
+  currentProp.setMortgage(false);
+  player.changeMoney((-1)*currentProp.getPrices()[1]);
+  um.hide();
+  m.show();
 }
 
 void draw(){
@@ -153,6 +170,8 @@ void Submit(){
      name = main.addTextlabel("name").setPosition(720,20).setFont(createFont("Calibri",30)).setColor(255).setText("");
      money = main.addTextlabel("money").setPosition(720,70).setFont(createFont("Calibri",30)).setColor(255).setText("");
      propert = prop.addTextlabel("props").setPosition(720,1200).setFont(createFont("Calibri",30)).setColor(255);
+     buy = main.addButton("Buy").setPosition(550,800).setSize(50,30).hide();
+     info = main.addTextlabel("info").setPosition(20,800).setFont(createFont("Calibri",40)).setColor(255).setText("");
      for(int i = 0; i <28;i++){
        please[i] = prop.addButton(""+i).setPosition(720,150+(30*i)).setSize(200,25).setFont(createFont("Calibri",20));
      }    
@@ -175,6 +194,10 @@ void Submit(){
    name.setText("");
    money.setText("");
    propert.setText("");
+   info.setText("");
+   buy.hide();
+   um.hide();
+   m.hide();
    boolean found = false;
     for(int i=0;i < players.length;i++){
       if(players[(index%players.length)+i].getMoney() >0&&!found){
@@ -198,7 +221,7 @@ void Submit(){
   if(pl.getLocation() - d < 0){
      pl.changeMoney(200); 
   }
-  board.getArray()[(int)pl.getLocation()].evaluate(pl,board,(float)d); 
+  board.getArray()[(int)pl.getLocation()].evaluate(pl,board,(float)d,buy,info); 
   if(b==c){
     rA.setText("You rolled doubles. Roll again!");
     //main.addTextlabel("rollAgain").setPosition(900,110).setFont(createFont("Calibri",30)).setColor(255).setText("You rolled doubles. Roll again!");
@@ -251,6 +274,12 @@ void Submit(){
          ind.show();
          currentProp = board.getArray()[player.getProperties().get(Integer.parseInt(theEvent.getController().getName()))];
          float[] ps = currentProp.getPrices();
+         if(currentProp.getMortgage()){
+            um.show(); 
+         }
+         else{
+            m.show(); 
+         }
          t.setText(currentProp.getName()+"\nPrice: $"+ps[0]+"   Rent: $"+ps[2]+"\nWith 1 House:  $"+ps[3]+"\nWith 2 Houses:  $"+ps[4]+"\nWith 3 Houses:  $"+ps[5]+"\nWith 4 Houses:  $"+ps[6]+"\nWith a Hotel:  $"+ps[7]+"\nOne House Costs: $"+ps[8]+"\nMortgage Value: $"+ps[1]+"\nYou have "+ currentProp.getHouses()+" houses");
        }
      });
