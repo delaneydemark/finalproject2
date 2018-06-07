@@ -60,6 +60,7 @@ public class Space extends Monopoly{
   
   public void evaluate(Player p, Board b, float d,controlP5.Button buy, controlP5.Textlabel info){
     if(type.equals(0)){
+      //println(type);
       if(owner.equals(null)){//not the problem
       //NULL POINTER EXCEPTION THROWN FOR THIS IF STATEMENT
         //check if want to buy
