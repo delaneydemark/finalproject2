@@ -49,11 +49,13 @@ public class Space extends Monopoly{
   
   
   public void evaluate(Player p, Board b, float d){
+    println(prices[0]);
     if(type.equals(0)){
-      if(owner.equals(null)){
+      if(owner.equals(null)){//not the problem
         //check if want to buy
         boolean buy = true;
         if(buy){
+          
          p.changeMoney(-1*prices[0]);
          owner = p;
          p.addProperties(index);
