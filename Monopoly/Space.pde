@@ -60,22 +60,19 @@ public class Space extends Monopoly{
   
   public void evaluate(Player p, Board b, float d,controlP5.Button buy, controlP5.Textlabel info){
     if(type.equals(0)){
-      //println(type);
-      //if(owner.equals(null)){//THIS IS THE PROBLEM
-      println(owner.equals(null));
-      //NULL POINTER EXCEPTION THROWN FOR THIS IF STATEMENT
+      if(owner==null){
         //check if want to buy
-        //pl = p;
-        //info.setText("Nobody owns this, would you Like to buy it?");
-        /*buy.show()
+        pl = p;
+        info.setText("Nobody owns this, would you Like to buy it?");
+        buy.show()
          .onPress(new CallbackListener(){
            public void controlEvent(CallbackEvent theEvent){
              pl.changeMoney(-1*prices[0]);//prices not the problem
              owner = pl;
              pl.addProperties(index);
            }
-         });*/
-      /*}
+         });
+      }
       else if(!owner.equals(p)){
         float rent = 0;
         if(houses.equals(0)){
@@ -87,8 +84,8 @@ public class Space extends Monopoly{
         p.changeMoney(-1*rent);
         owner.changeMoney(rent);
         info.setText(owner.getName()+" owns this. You paid them $"+rent+" in rent.");
-      }*/
-    }/*
+      }
+    }
     else if (type.equals(1)){
       int n = 0;
       if(index % 5 == 0){
@@ -173,6 +170,6 @@ public class Space extends Monopoly{
     else if (type.equals(4)){
       p.changeMoney(-1*prices[2]);
       info.setTest("You paid $"+prices[2]+".");
-    }*/
+    }
   }
 }
