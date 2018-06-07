@@ -49,18 +49,17 @@ public class Space extends Monopoly{
   
   
   public void evaluate(Player p, Board b, float d){
-    println(prices[0]);
     if(type.equals(0)){
       if(owner.equals(null)){//not the problem
+      //NULL POINTER EXCEPTION THROWN FOR THIS IF STATEMENT
         //check if want to buy
         boolean buy = true;
         if(buy){
-          
-         p.changeMoney(-1*prices[0]);
+         p.changeMoney(-1*prices[0]);//prices not the problem
          owner = p;
          p.addProperties(index);
         }
-      }
+      }/*
       else if(!owner.equals(p)){
         float rent = 0;
         if(houses.equals(0)){
@@ -71,8 +70,8 @@ public class Space extends Monopoly{
         }
         p.changeMoney(-1*rent);
         owner.changeMoney(rent);
-      }
-    }
+      }*/
+    }/*
     else if (type.equals(1)){
       int n = 0;
       if(index % 5 == 0){
@@ -149,6 +148,6 @@ public class Space extends Monopoly{
     }
     else if (type.equals(4)){
       p.changeMoney(-1*prices[2]);
-    }
+    }*/
   }
 }
