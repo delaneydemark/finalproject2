@@ -138,7 +138,7 @@ public class Space extends Monopoly{
       }
     }
     else if (type.equals(2)){
-      Card c = board.getCommunityChestCard();
+      Card c = b.getCommunityChestCard();
       if(c.getType().equals(1)){
          p.changeMoney(c.getChange());
       }
