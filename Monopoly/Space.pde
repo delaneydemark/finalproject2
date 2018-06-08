@@ -151,7 +151,7 @@ public class Space extends Monopoly{
       info.setText("Community Chest Card: "+c.getDescription());
     }
     else if (type.equals(3)){
-      Card c = board.getChanceCard();
+      Card c = b.getChanceCard();
       if(c.getType().equals(0)){
          p.changeLocation(c.getChange());
          b.getArray()[(int) p.getLocation()].evaluate(p,b,d, buy, info);
