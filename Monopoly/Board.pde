@@ -27,12 +27,12 @@ public class Board{
  }
   
  public Card getChanceCard(){
-   int num = (int) Math.random() * (chanceCards.length + 1);
+   int num = (int) (Math.random() * (chanceCards.length));
    return chanceCards[num];
  }
   
  public Card getCommunityChestCard(){
-   int num = (int) Math.random() * (communityChestCards.length + 1);
+   int num = (int) (Math.random() * (communityChestCards.length));
    return communityChestCards[num];
  }
   

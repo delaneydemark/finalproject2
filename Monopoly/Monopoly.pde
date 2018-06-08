@@ -25,12 +25,12 @@ void setup(){
   main = new ControlP5(this);
   prop = new ControlP5(this);
   ind = new ControlP5(this);
-  t= ind.addTextlabel("info").setPosition(720,50).setFont(createFont("Calibri",20)).setColor(255);
+  t= ind.addTextlabel("info").setPosition(720,120).setFont(createFont("Calibri",20)).setColor(255);
   b= ind.addButton("Buy_House").setPosition(720,350).setSize(100,50);
   s= ind.addButton("Sell_House").setPosition(850,350).setSize(100,50);
   c= ind.addButton("Close").setPosition(1000,420).setSize(50,50);
-  m = ind.addButton("Mortgage_Property").setPosition(720,420).setSize(50,50);
-  um = ind.addButton("Unmortgage_Property").setPosition(720,420).setSize(50,50);
+  m = ind.addButton("Mortgage_Property").setPosition(720,420).setSize(100,50);
+  um = ind.addButton("Unmortgage_Property").setPosition(720,420).setSize(100,50);
   um.hide();
   m.hide();
   ind.hide();
@@ -47,12 +47,19 @@ void Buy_House(){
   if(currentProp.getHouses() < 5){
     currentProp.addHouses(1);
     player.changeMoney((-1)*currentProp.getPrices()[8]);  
+    float[] ps = currentProp.getPrices();
+    money.setText("Cash: "+ player.getMoney());
+    t.setText(currentProp.getName()+"\nPrice: $"+ps[0]+"   Rent: $"+ps[2]+"\nWith 1 House:  $"+ps[3]+"\nWith 2 Houses:  $"+ps[4]+"\nWith 3 Houses:  $"+ps[5]+"\nWith 4 Houses:  $"+ps[6]+"\nWith a Hotel:  $"+ps[7]+"\nOne House Costs: $"+ps[8]+"\nMortgage Value: $"+ps[1]+"\nYou have "+ currentProp.getHouses()+" houses");
   }
 }
 void Sell_House(){
   if(currentProp.getHouses() > 0){
    currentProp.addHouses(-1);
    player.changeMoney(currentProp.getPrices()[8]);
+    float[] ps = currentProp.getPrices();
+    money.setText("Cash: "+ player.getMoney());
+   t.setText(currentProp.getName()+"\nPrice: $"+ps[0]+"   Rent: $"+ps[2]+"\nWith 1 House:  $"+ps[3]+"\nWith 2 Houses:  $"+ps[4]+"\nWith 3 Houses:  $"+ps[5]+"\nWith 4 Houses:  $"+ps[6]+"\nWith a Hotel:  $"+ps[7]+"\nOne House Costs: $"+ps[8]+"\nMortgage Value: $"+ps[1]+"\nYou have "+ currentProp.getHouses()+" houses");
+
   }
 }
 void Close(){
@@ -63,11 +70,13 @@ void Close(){
 void Mortgage_Property(){
   currentProp.setMortgage(true);
   player.changeMoney(currentProp.getPrices()[1]);
+  money.setText("Cash: "+ player.getMoney());
   m.hide();
   um.show();
 }
 void Unmortgage_Property(){
   currentProp.setMortgage(false);
+  money.setText("Cash: "+ player.getMoney());
   player.changeMoney((-1)*currentProp.getPrices()[1]);
   um.hide();
   m.show();
@@ -161,7 +170,7 @@ void Submit(){
      main.addButton("gameBoard").setPosition(0,0).setImage(loadImage("board.jpg"));
      main.addButton("End_Turn").setPosition(950,725).setSize(100,50).setFont(createFont("Calibri",20));
      main.addButton("Roll_Dice").setPosition(925,70).setSize(115,30).setFont(createFont("Calibri",20));
-     rA = main.addTextlabel("rollAgain").setPosition(900,110).setFont(createFont("Calibri",30)).setColor(255).setText("");
+     rA = main.addTextlabel("rollAgain").setPosition(900,110).setFont(createFont("Calibri",10)).setColor(255).setText("");
     dice = main.addTextlabel("dice").setPosition(1050,70).setFont(createFont("Calibri",30)).setColor(255).setText("");
      iJ = main.addTextlabel("inJail").setPosition(20,710).setFont(createFont("Calibri",30)).setColor(255).setText("");
      jC =  main.addTextlabel("jailCard").setPosition(20,750).setFont(createFont("Calibri",30)).setColor(255).setText("");
@@ -169,11 +178,11 @@ void Submit(){
      loc = main.addTextlabel("location").setPosition(20,740).setFont(createFont("Calibri",40)).setColor(255).setText("");
      name = main.addTextlabel("name").setPosition(720,20).setFont(createFont("Calibri",30)).setColor(255).setText("");
      money = main.addTextlabel("money").setPosition(720,70).setFont(createFont("Calibri",30)).setColor(255).setText("");
-     propert = prop.addTextlabel("props").setPosition(720,1200).setFont(createFont("Calibri",30)).setColor(255);
-     buy = main.addButton("Buy").setPosition(550,800).setSize(50,30).hide();
+     propert = prop.addTextlabel("props").setPosition(720,120).setFont(createFont("Calibri",30)).setColor(255);
+     buy = main.addButton("Buy").setPosition(925,800).setSize(50,30).hide();
      info = main.addTextlabel("info").setPosition(20,800).setFont(createFont("Calibri",40)).setColor(255).setText("");
      for(int i = 0; i <28;i++){
-       please[i] = prop.addButton(""+i).setPosition(720,150+(30*i)).setSize(200,25).setFont(createFont("Calibri",20));
+       please[i] = prop.addButton(""+i).setPosition(720,150+(30*i)).setSize(250,25).setFont(createFont("Calibri",20));
      }    
      uC.hide();
      turn(players[0]);
@@ -186,7 +195,7 @@ void Submit(){
   move(player, rollDice(), rollDice());
  }
 
- void EndTurn(){
+ void End_Turn(){
    index++;
    dice.setText("");
    iJ.setText("");
@@ -200,8 +209,8 @@ void Submit(){
    m.hide();
    boolean found = false;
     for(int i=0;i < players.length;i++){
-      if(players[(index%players.length)+i].getMoney() >0&&!found){
-       turn(players[(index%players.length) + i]);
+      if(players[((index%players.length)+i)%players.length].getMoney() >0&&!found){
+       turn(players[((index%players.length) + i)%players.length]);
        index+= i;
        found = true;
       }
@@ -221,7 +230,7 @@ void Submit(){
   if(pl.getLocation() - d < 0){
      pl.changeMoney(200); 
   }
-  board.getArray()[(int)pl.getLocation()].evaluate(pl,board,(float)d,buy,info); 
+  board.getArray()[(int)pl.getLocation()].evaluate(pl,board,(float)d,buy,info,money); 
   if(b==c){
     rA.setText("You rolled doubles. Roll again!");
     //main.addTextlabel("rollAgain").setPosition(900,110).setFont(createFont("Calibri",30)).setColor(255).setText("You rolled doubles. Roll again!");
@@ -244,6 +253,7 @@ void Submit(){
    }
    else if(rollAgain){
      rollAgain= false;
+     buy.hide();
      move(player, b, c);
    }
    else{

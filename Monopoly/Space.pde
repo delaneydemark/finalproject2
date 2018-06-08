@@ -12,6 +12,7 @@ public class Space extends Monopoly{
  boolean mortgage = false;
  int index;
  Player pl;
+ controlP5.Textlabel moneyy;
  
  public Space(int ind, Integer Type, String Name, float[] Prices){
    type = Type;
@@ -58,7 +59,8 @@ public class Space extends Monopoly{
   }
   
   
-  public void evaluate(Player p, Board b, float d,controlP5.Button buy, controlP5.Textlabel info){
+  public void evaluate(Player p, Board b, float d,controlP5.Button buy, controlP5.Textlabel info,controlP5.Textlabel money){
+    moneyy= money;
     if(type.equals(0)){
       if(owner==null){
         //check if want to buy
@@ -70,6 +72,7 @@ public class Space extends Monopoly{
              pl.changeMoney(-1*prices[0]);//prices not the problem
              owner = pl;
              pl.addProperties(index);
+             moneyy.setText("Cash: "+ pl.getMoney());
            }
          });
       }
@@ -91,7 +94,7 @@ public class Space extends Monopoly{
       if(index % 5 == 0){
         n = 1;
       }        
-      if(owner.equals(null)){
+      if(owner==null){
         //check if want to buy
         pl = p;
         info.setText("Nobody owns this, would you Like to buy it?");
@@ -100,6 +103,7 @@ public class Space extends Monopoly{
            public void controlEvent(CallbackEvent theEvent){
              pl.changeMoney(-1*prices[0]);
              owner = pl;
+             moneyy.setText("Cash: "+ pl.getMoney());
              pl.addProperties(index);
              if(index % 5 != 0){
               pl.setUCounter(1); 
@@ -146,6 +150,9 @@ public class Space extends Monopoly{
          p.setGetOutOfJail(1); 
       }
       else if(c.getType().equals(4)){
+        if(c.getChange()==0){
+          p.changeMoney(200);
+        }
          p.setLocation(c.getChange()); 
       }
       info.setText("Community Chest Card: "+c.getDescription());
@@ -154,7 +161,7 @@ public class Space extends Monopoly{
       Card c = b.getChanceCard();
       if(c.getType().equals(0)){
          p.changeLocation(c.getChange());
-         b.getArray()[(int) p.getLocation()].evaluate(p,b,d, buy, info);
+         b.getArray()[(int) p.getLocation()].evaluate(p,b,d, buy, info,money);
       }
       else if(c.getType().equals(1)){
          p.changeMoney(c.getChange());
@@ -163,6 +170,9 @@ public class Space extends Monopoly{
          p.setGetOutOfJail(1); 
       }
       else if(c.getType().equals(4)){
+        if(c.getChange()==0){
+          p.changeMoney(200);
+        }
          p.setLocation(c.getChange()); 
       }
       info.setText("Chance Card: "+c.getDescription());
@@ -171,5 +181,7 @@ public class Space extends Monopoly{
       p.changeMoney(-1*prices[2]);
       info.setText("You paid $"+prices[2]+".");
     }
+    money.setText("Cash: "+ p.getMoney());
   }
+  
 }
