@@ -306,7 +306,7 @@ void Submit(){
   }
  }
  
- /*void breakingOutOfJail(Player p,int b,int c){
+ void breakingOutOfJail(Player p,int b,int c){
    int dieOne = b;
    int dieTwo =c;
    if(p.getJailCounter() < 3){
@@ -327,7 +327,7 @@ void Submit(){
      p.changeJailCounter(-3);
      move(p, dieOne, dieTwo);
    }
- }*/
+ }
 
 
 // returns true if the game is over, returns false otherwise
